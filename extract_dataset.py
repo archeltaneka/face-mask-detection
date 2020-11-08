@@ -74,12 +74,13 @@ for i in tqdm(range(len(img_paths))):
         for k in range(n_masks[i]):
             face = img[bounding_boxes[j][1]:bounding_boxes[j][3], bounding_boxes[j][0]:bounding_boxes[j][2]]
             faces.append(face)
+            
         
             j += 1
             
         break
 
-print('[STATUS] Task completed: read images & extract faces')
+print('[STATUS] Task completed: Read images & extract faces')
         
 IMG_SIZE = args['size']
 print('[INFO] Resizing faces according to the input size: {}x{}....'.format(IMG_SIZE, IMG_SIZE))
@@ -104,4 +105,19 @@ for l in tqdm(names):
         encoded_labels.append(2)
         
 print('[STATUS] Task completed: Building data labels')
-print('Building dataset completed!')
+print('[INFO] Saving data into an output file...')
+print('[STATUS] Saving completed:', args['output'])
+
+data_pickle = {'features': faces, 'labels': encoded_labels}
+
+with open(args['output'], 'wb') as f:
+    pickle.dump(data_pickle, f)
+    
+print('Building dataset completed!\n')
+
+print("Total number of images:", len(faces))
+print("Total number of unique labels:", len(unique_labels))
+print("Labels:", unique_labels)
+print("'with_mask' labeled images:", sum(n == 'with_mask' for n in names))
+print("'without_mask' labeled images:", sum(n == 'without_mask' for n in names))
+print("'mask_weared_incorrect' labeled images:", sum(n == 'mask_weared_incorrect' for n in names))
