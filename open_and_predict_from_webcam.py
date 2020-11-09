@@ -1,5 +1,6 @@
 from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score, classification_report
 from torchvision import transforms, models
+from utils import Model
 
 import numpy as np
 import argparse
@@ -21,12 +22,41 @@ arg_parser.add_argument('-e', '--epochs', required=True, help='Number of trainin
 arg_parser.add_argument('-l', '--learning_rate', required=True, help='Training learning rate')
 args = vars(arg_parser.parse_args())
 
-print(args['path'])
-print(args['detector'])
-print(args['recognition_model'])
-print(args['resize'])
-print(args['split_value'])
-print(args['batch_size'])
-print(args['epochs'])
-print(args['learning_rate'])
+# print(args['path'])
+# print(args['detector'])
+# print(args['recognition_model'])
+# print(args['resize'])
+# print(args['split_value'])
+# print(args['batch_size'])
+# print(args['epochs'])
+# print(args['learning_rate'])
 
+with open('face_mask_dataset.pickle', 'rb') as f:
+    loaded_data = pickle.load(f)
+
+features = loaded_data['features']
+labels = loaded_data['labels']
+
+IMG_SIZE = int(args['resize'])
+split_val = float(args['split_value'])
+
+features = np.asarray(features)
+features = np.reshape(features, [len(features), 3, IMG_SIZE, IMG_SIZE])
+labels = np.asarray(labels)
+n_train = int(split_val * len(features))
+
+train_features = features[:n_train]
+train_labels = labels[:n_train]
+test_features = features[n_train:]
+test_labels = labels[n_train:]
+
+train_data = torch.utils.data.TensorDataset(torch.from_numpy(train_features), torch.from_numpy(train_labels))
+test_data = torch.utils.data.TensorDataset(torch.from_numpy(test_features), torch.from_numpy(test_labels))
+
+BATCH_SIZE = int(args['batch_size'])
+NUM_WORKERS = 0
+train_loader = torch.utils.data.DataLoader(train_data, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS, shuffle=True)
+test_loader = torch.utils.data.DataLoader(test_data, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS, shuffle=True)
+
+model = Model()
+print(model)
