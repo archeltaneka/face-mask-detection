@@ -11,8 +11,9 @@ import torch.nn.functional as F
 import matplotlib.pyplot as plt
 
 arg_parser = argparse.ArgumentParser()
-arg_parser.add_argument('-d', '-detector', required=True, help='Path to face detector file')
-arg_parser.add_argument('-e', '--embedding-model', required=True, help='Path to face embedding file')
+arg_parser.add_argument('-p', '--path', required=True, help='Path to the embedded dataset') 
+arg_parser.add_argument('-d', '--detector', required=True, help='Path to face detector file')
+arg_parser.add_argument('-m', '--recognition-model', required=True, help='Path to face recognition file')
 arg_parser.add_argument('-r', '--resize', required=True, help='Resize face to a certain size (must be the same size with the one you specified in extract_dataset.py)')
 arg_parser.add_argument('-s', '--split-value', required=True, help='Train/test data split value (decimal point, e.g. 0.8)')
 arg_parser.add_argument('-b', '--batch-size', required=True, help='Train/test batch size')
