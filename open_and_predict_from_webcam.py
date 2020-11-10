@@ -1,6 +1,6 @@
 from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score, classification_report
 from torchvision import transforms, models
-from utils import Model
+from utils import Model, train
 
 import numpy as np
 import argparse
@@ -60,3 +60,16 @@ test_loader = torch.utils.data.DataLoader(test_data, batch_size=BATCH_SIZE, num_
 
 model = Model()
 print(model)
+
+use_cuda = torch.cuda.is_available()
+if use_cuda:
+    print('Training using GPU:', torch.cuda.get_device_name(0))
+    model = model.cuda()
+else:
+    print('No Nvidia GPU found, training using CPU')
+
+criterion = nn.CrossEntropyLoss()
+optimizer = torch.optim.Adam(model.parameters(), lr=float(args['learning_rate']))
+
+final_model, training_losses = train(int(args['epochs']), model, train_loader, criterion, optimizer, use_cuda, save_path='')
+
