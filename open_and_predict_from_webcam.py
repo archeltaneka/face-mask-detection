@@ -1,6 +1,6 @@
-from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score, classification_report
 from torchvision import transforms, models
-from utils import Model, train
+from lib.utils import train, evaluate
+from lib.modelbuilder import Model
 
 import numpy as np
 import argparse
@@ -72,4 +72,4 @@ criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=float(args['learning_rate']))
 
 final_model, training_losses = train(int(args['epochs']), model, train_loader, criterion, optimizer, use_cuda, save_path='')
-
+evaluate(model, test_loader, criterion, use_cuda)
