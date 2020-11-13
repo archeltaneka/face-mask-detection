@@ -5,11 +5,17 @@ import argparse
 import torch
 import cv2
 
+print('[INFO] Initiating...')
+print('[INFO] Loading resources...')
+
 arg_parser = argparse.ArgumentParser()
 arg_parser.add_argument('-d', '--detector', required=True, help='Path to face detector file')
 arg_parser.add_argument('-r', '--recognition_model', required=True, help='Path to face recognition file')
 arg_parser.add_argument('-m', '--model', required=True, help='Path to the saved model')
 args = vars(arg_parser.parse_args())
+
+print('[INFO] Model used for prediction:', args['model'])
+print('[STATUS] Loading resources completed')
 
 IMG_SIZE = 64
 LABELS = ['without_mask', 'with_mask', 'mask_weared_incorrect']
@@ -28,9 +34,12 @@ model.load_state_dict(torch.load(model_path))
 cap = cv2.VideoCapture(0)
 face_model = cv2.dnn.readNetFromCaffe(prototxt_file, caffemodel_file)
 
+print('[INFO] Looking for camera/webcam...')
+
 if cap is None or not cap.isOpened():
     print('[ERROR] No camera device is detected!')
 else:
+    print('[INFO] Camera found! Opening...')
     while True:
         ret, frame = cap.read()
         (h,w) = frame.shape[:2]
@@ -80,5 +89,6 @@ else:
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     
+    print('[INFO] Closing program...')
     cap.release()
     cv2.destroyAllWindows()
