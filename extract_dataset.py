@@ -15,7 +15,6 @@ print('Initiating dataset builder...')
 arg_parser = argparse.ArgumentParser()
 arg_parser.add_argument('-a', '--annotations', required=True, help='Input path to your "annotations" directory (Download avaialable on: https://www.kaggle.com/andrewmvd/face-mask-detection')
 arg_parser.add_argument('-i', '--images', required=True, help='Input path to your "images" directory (Download avaialable on: https://www.kaggle.com/andrewmvd/face-mask-detection')
-arg_parser.add_argument('-s', '--size', required=True, help='Desired output image size')
 arg_parser.add_argument('-o', '--output', required=True, help='Output path to the serialized (pickled) dataset')
 args = vars(arg_parser.parse_args())
 
@@ -75,14 +74,13 @@ for i in tqdm(range(len(img_paths))):
             face = img[bounding_boxes[j][1]:bounding_boxes[j][3], bounding_boxes[j][0]:bounding_boxes[j][2]]
             faces.append(face)
             
-        
             j += 1
             
         break
 
 print('[STATUS] Task completed: Read images & extract faces')
         
-IMG_SIZE = args['size']
+IMG_SIZE = 64
 print('[INFO] Resizing faces according to the input size: {}x{}....'.format(IMG_SIZE, IMG_SIZE))
 
 encoded_labels = []
