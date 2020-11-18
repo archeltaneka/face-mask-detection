@@ -15,7 +15,6 @@ print('Initiating model training and evaluation...')
 
 arg_parser = argparse.ArgumentParser()
 arg_parser.add_argument('-p', '--path', required=True, help='Path to the embedded dataset') 
-arg_parser.add_argument('-r', '--resize', required=True, help='Resize face to a certain size (must be the same size with the one you specified in extract_dataset.py)')
 arg_parser.add_argument('-s', '--split_value', required=True, help='Train/test data split value (decimal point, e.g. 0.8)')
 arg_parser.add_argument('-b', '--batch_size', required=True, help='Train/test batch size')
 arg_parser.add_argument('-e', '--epochs', required=True, help='Number of training epochs')
@@ -33,16 +32,16 @@ print('[INFO] Converting dataset into tensors...')
 features = loaded_data['features']
 labels = loaded_data['labels']
 
-print('[INFO] All images will be resized to {}x{}'.format(args['resize'], args['resize']))
+IMG_SIZE = 64
+print('[INFO] All images will be resized to {}x{}'.format(IMG_SIZE, IMG_SIZE))
 
-IMG_SIZE = int(args['resize'])
 split_val = float(args['split_value'])
 
 features = np.asarray(features)
 features = np.reshape(features, [len(features), 3, IMG_SIZE, IMG_SIZE])
 labels = np.asarray(labels)
 
-print('[INFO] Training/test split: {}%'.format(int(split_val*100)))
+print('[INFO] Training/test split: {}/{}'.format(int(split_val*100), int(100 - (split_val*100))))
 
 n_train = int(split_val * len(features))
 train_features = features[:n_train]
