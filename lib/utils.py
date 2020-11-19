@@ -8,6 +8,24 @@ import matplotlib.pyplot as plt
 
 def train(num_epochs, model, loader, crit, opt, use_cuda, plot_curve=True, save_path=''):
     
+    """
+    Train a neural network model
+
+    # Arguments
+        num_epochs: Integer - number of epochs (iterations) for the model to learn
+        model: modelbuilder.Model - untrained model
+        loader:  torch.utils.data.DataLoader - train data loader
+        crit: criterion (ex: nn.CrossEntropyLoss)
+        opt: torch.optim - optimizer
+        use_cuda: Boolean - True if CUDA is available, False otherwise
+        plot_curve: Boolean - enable/disable plotting function
+        save_path: String - path to save the trained model
+
+    # Outputs
+        model: modelbuilder.Model - trained model
+        training_losses: List - history of training losses in the entire epochs
+    """
+
     training_losses = []
     
     for i in range(num_epochs):
@@ -47,6 +65,19 @@ def train(num_epochs, model, loader, crit, opt, use_cuda, plot_curve=True, save_
 
 def evaluate(model, loader, crit, use_cuda):
     
+    """
+    Evaluate/test the model
+
+    # Arguments
+        model: modelbuilder.Model - trained model
+        loader: torch.utils.data.DataLoader - test data loader
+        crit: criterion (ex: nn.CrossEntropyLoss)
+        use_cuda: Boolean - True if CUDA is available, False otherwise
+
+    # Outputs
+        None
+    """
+
     all_preds = []
     ground_truths = []
     test_loss = 0.0
