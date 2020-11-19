@@ -4,9 +4,12 @@ import torch.nn.functional as F
 
 class Model(nn.Module):
     """
-    Build a custom deep neural network model
+    Build/initiate a custom deep neural network model
 
     # Arguments
+        None
+
+    # Outputs
         None
 
     """
@@ -30,10 +33,10 @@ class Model(nn.Module):
     Forward propagation method
 
     # Arguments
-        x: input (feature vector)
+        x: torch.Tensor - input (feature vector)
     
     # Output
-        x: prediction vector
+        x: torch.Tensor - prediction vector
     """
 
     def forward(self, x):
