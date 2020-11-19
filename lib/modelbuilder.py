@@ -3,18 +3,19 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class Model(nn.Module):
-    """
-    Build/initiate a custom deep neural network model
-
-    # Arguments
-        None
-
-    # Outputs
-        None
-
-    """
 
     def __init__(self):
+        """
+        Build/initiate a custom deep neural network model
+
+        # Arguments
+            None
+
+        # Outputs
+            None
+
+        """
+        
         super(Model, self).__init__()
         
         # convolutional layers
@@ -28,18 +29,19 @@ class Model(nn.Module):
         self.fc1 = nn.Linear(64*8*8, 128)
         # classification/output layer
         self.fc2 = nn.Linear(128, 3)
-    
-    """
-    Forward propagation method
-
-    # Arguments
-        x: torch.Tensor - input (feature vector)
-    
-    # Output
-        x: torch.Tensor - prediction vector
-    """
 
     def forward(self, x):
+        """
+        Forward propagation method
+
+        # Arguments
+            x: torch.Tensor - input (feature vector)
+        
+        # Output
+            x: torch.Tensor - prediction vector
+            
+        """
+
         x = F.relu(self.conv1(x))
         x = self.pool(x)
         x = F.relu(self.conv2(x))
