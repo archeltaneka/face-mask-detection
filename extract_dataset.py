@@ -1,4 +1,3 @@
-from glob import glob
 from tqdm import tqdm
 from os import listdir
 from os.path import isfile, join
