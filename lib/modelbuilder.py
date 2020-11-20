@@ -4,6 +4,14 @@ import torch.nn.functional as F
 
 class Model(nn.Module):
 
+    """
+    --Note--
+    Feel free to experiment with the neural network architecture. What can you do:
+        1. Add/decrease the number of layers
+        2. Change the number of filter, padding, stride
+        3. Add another type of layers (e.g. Batch norm)
+    """
+
     def __init__(self):
         """
         Build/initiate a custom deep neural network model
