@@ -13,11 +13,12 @@ print('Initiating model training and evaluation...')
 
 # adds argument parser for the script
 arg_parser = argparse.ArgumentParser()
-arg_parser.add_argument('-p', '--path', required=True, help='Path to the embedded dataset') # path to the .pickle file
+arg_parser.add_argument('-d', '--dataset', required=True, help='Path to the extracted dataset') # path to the .pickle file
 arg_parser.add_argument('-s', '--split_value', required=True, help='Train/test data split value (decimal point, e.g. 0.8)') # train/test split value
 arg_parser.add_argument('-b', '--batch_size', required=True, help='Train/test batch size') # batch size value
 arg_parser.add_argument('-e', '--epochs', required=True, help='Number of training epochs') # number of epochs/iterations
 arg_parser.add_argument('-l', '--learning_rate', required=True, help='Training learning rate') # learning rate value
+arg_parser.add_argument('-f', '--file_name', required=False, help='Saving path of your trained model (optional)') # save file name
 args = vars(arg_parser.parse_args())
 
 print('[INFO] Loading your dataset: {}...'.format(args['path']))
