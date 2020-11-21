@@ -13,17 +13,18 @@ print('Initiating model training and evaluation...')
 
 # adds argument parser for the script
 arg_parser = argparse.ArgumentParser()
-arg_parser.add_argument('-p', '--path', required=True, help='Path to the embedded dataset') # path to the .pickle file
+arg_parser.add_argument('-d', '--dataset', required=True, help='Path to the extracted dataset') # path to the .pickle file
 arg_parser.add_argument('-s', '--split_value', required=True, help='Train/test data split value (decimal point, e.g. 0.8)') # train/test split value
 arg_parser.add_argument('-b', '--batch_size', required=True, help='Train/test batch size') # batch size value
 arg_parser.add_argument('-e', '--epochs', required=True, help='Number of training epochs') # number of epochs/iterations
 arg_parser.add_argument('-l', '--learning_rate', required=True, help='Training learning rate') # learning rate value
+arg_parser.add_argument('-f', '--file_name', required=False, help='Saving path of your trained model (optional)') # save file name
 args = vars(arg_parser.parse_args())
 
-print('[INFO] Loading your dataset: {}...'.format(args['path']))
+print('[INFO] Loading your dataset: {}...'.format(args['dataset']))
 
 # load the extracted dataset
-with open(args['path'], 'rb') as f:
+with open(args['dataset'], 'rb') as f:
     loaded_data = pickle.load(f)
 
 print('[STATUS] Dataset found, loading data completed')
@@ -92,7 +93,12 @@ optimizer = torch.optim.Adam(model.parameters(), lr=float(args['learning_rate'])
 print('[INFO] Training and evaluating the model...')
 
 # train and evaluate the model
-final_model, training_losses = train(int(args['epochs']), model, train_loader, criterion, optimizer, use_cuda, save_path='')
+if args['file_name'] is None:
+    print('[WARNING] Trained model will not be saved, no path specified. Use -f or --file_name args to save the trained model')
+else:
+    print('[INFO] Trained model will be saved as:', args['file_name'])
+    
+final_model, training_losses = train(int(args['epochs']), model, train_loader, criterion, optimizer, use_cuda, save_path=args['file_name'])
 evaluate(model, test_loader, criterion, use_cuda)
 
 print('[STATUS] Model training and evaluation completed')
