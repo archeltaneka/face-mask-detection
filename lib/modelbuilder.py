@@ -6,7 +6,7 @@ class Model(nn.Module):
 
     """
     --Note--
-    Feel free to experiment with the neural network architecture. What can you do:
+    Feel free to experiment with the neural network architecture:
         1. Add/decrease the number of layers
         2. Change the number of filter, padding, stride
         3. Add another type of layers (e.g. Batch norm)
@@ -57,7 +57,7 @@ class Model(nn.Module):
         x = F.relu(self.conv3(x))
         x = self.pool(x)
         
-        x = x.view(-1, x.shape[1]*x.shape[2]*x.shape[3])
+        x = x.view(-1, x.shape[1]*x.shape[2]*x.shape[3]) # flattens the input vector
         x = F.relu(self.fc1(x))
         x = self.fc2(x)
         
