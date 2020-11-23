@@ -1,4 +1,4 @@
-name: pytorch_cpu
+name: face_mask_detection_cpu_env
 channels:
   - pytorch
   - anaconda
