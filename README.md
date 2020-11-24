@@ -25,8 +25,14 @@ conda activate face_mask_detection_cpu_env
 ```
 
 5. Next, we still have to install PyTorch. PyTorch is one of the open source machine learning libraries for deep learning like Tensorflow, Caffe, etc. 
-If create the `face_mask_detection_env.yml` environment, head to the PyTorch's official [website](https://pytorch.org/), then scroll down to the "Install PyTorch" section, choose your build, OS, package, language, and CUDA version, and you will find the command on how to install PyTorch with CUDA.<br>
-If you create the environment using `face_mask_detection_cpu_env.yml`, skip this step because PyTorch CPU has been installed when you create the environment.
+If you created the `face_mask_detection_env.yml` environment, head to the PyTorch's official [website](https://pytorch.org/), then scroll down to the "Install PyTorch" section, choose your build, OS, package, language, and CUDA version, and you will find the command on how to install PyTorch with CUDA. <b> Make sure that you are still using the active environment.
+> You can tell whether you are still using it in the Anaconda Prompt.</b>
+```
+(base) C:\Users\Archel: 
+``` 
+This means that you are using the default (base) environment
+<br><br>
+If you created the environment using `face_mask_detection_cpu_env.yml`, skip this step because PyTorch CPU has been installed when you created the environment.
 
 6. Follow this [link](https://drive.google.com/drive/folders/1uBNCtr45XHmpvQ3ei9--nOSnRXchEkgt?usp=sharing) to download the dataset and save it to `/data` directory. If you want to see dataset in more details, you can refer to this [link](https://www.kaggle.com/andrewmvd/face-mask-detection) that will take you directly to the original dataset on Kaggle (you can also download the dataset from there, but you are required to sign in). Then, unzip the file inside `/data` directory and you will end up with 2 directories: `/annotations` and `/images`
 
