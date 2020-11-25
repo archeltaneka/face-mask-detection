@@ -6,10 +6,15 @@ class Model(nn.Module):
 
     """
     --Note--
-    Feel free to experiment with the neural network architecture:
-        1. Add/decrease the number of layers
-        2. Change the number of filter, padding, stride
-        3. Add another type of layers (e.g. Batch norm)
+    1. Feel free to experiment with the neural network architecture:
+        - Add/decrease the number of layers
+        - Change the number of filter, padding, stride
+        - Add another type of layers (e.g. Batch norm)
+    
+    2. You need to modify the number of inputs in the linear (dense) layer if you changed the IMG_SIZE value in these files: `open_and_predict_from_webcam.py`,
+       `train_and_evaluate_model.py`, and `extract_dataset.py`.
+       Example: If you change the IMG_SIZE from 64 to 128, then you need to change the 1st linear layer (self.fc1) to nn.Linear(64*16*16, 128)
+
     """
 
     def __init__(self):
